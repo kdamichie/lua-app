@@ -1,4 +1,5 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
+import LightningAppOverlay from './views/LightningAppOverlay';
 import Instructions from './components/instructions';
 import { FONT_FAMILY } from './constants/style';
 import About from './views/About';
@@ -20,6 +21,11 @@ export default class App extends Lightning.Component {
       h: 1080,
       src: Utils.asset('images/lua-background.png'),
       zIndex: -10,
+
+      LightningAppOverlay: {
+        type: LightningAppOverlay,
+        alpha: 0
+      },
 
       Instructions: {
         type: Instructions,
