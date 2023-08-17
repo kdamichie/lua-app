@@ -4,34 +4,27 @@ export default class Instructions extends Lightning.Component {
   static _template() {
     return {
       Logo: {
-        x: 0,
-        y: 0,
+        x: 20,
+        y: -35,
         h: 100,
         text: {
-          text: 'Navigation',
-          fontSize: 16
+          text: 'Controls',
+          fontSize: 24,
+          fontColor: '00ff00'
         },
 
         Directions: {
-          y: 30,
-          w: 100,
-          h: 55,
+          y: 35,
+          w: 80,
+          h: 80,
           src: 'images/lua-remote-arrows.png'
         },
 
-        Return: {
-          x: 110,
-          y: 50,
-          w: 30,
-          h: 30,
-          src: 'images/lua-remote-select.png'
-        },
-
         Esc: {
-          x: 150,
-          y: 50,
-          w: 30,
-          h: 30,
+          x: 100,
+          y: 35,
+          w: 80,
+          h: 80,
           src: 'images/lua-remote-back.png'
         }
       }

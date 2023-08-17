@@ -8,20 +8,21 @@ export default class Main extends Lightning.Component {
       Logo: {
         type: Logo,
         mount: 0.5,
-        x: 960,
-        y: 300,
-        w: 300,
-        h: 300,
+        x: 1020,
+        y: 150,
+        w: 1500,
+        h: 1000,
         shader: { type: Lightning.shaders.FadeOut, fade: 20 }
       },
 
       Menu: {
+        color: '00ff00',
         x: 800,
-        y: 600,
+        y: 500,
         type: Menu,
         items: [
           { label: 'New Game', action: 'start' },
-          { label: 'Continue Last Game', action: 'continue' },
+          { label: 'Continue', action: 'continue' },
           { label: 'About', action: 'about' },
           { label: 'Exit', action: 'exit' }
         ]

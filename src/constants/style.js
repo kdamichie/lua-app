@@ -1,1 +1,1 @@
-export const FONT_FAMILY = 'PumpOpti-Medium';
+export const FONT_FAMILY = 'SuperDonuts';

@@ -1,5 +1,4 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
-import LightningAppOverlay from './views/LightningAppOverlay';
 import Instructions from './components/instructions';
 import { FONT_FAMILY } from './constants/style';
 import About from './views/About';
@@ -10,7 +9,7 @@ import Splash from './views/Splash';
 
 export default class App extends Lightning.Component {
   static getFonts() {
-    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/PumpOpti-Medium.otf') }];
+    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/SuperDonuts.ttf') }];
   }
 
   static _template() {
@@ -19,13 +18,8 @@ export default class App extends Lightning.Component {
       rect: true,
       w: 1920,
       h: 1080,
-      src: Utils.asset('images/lua-background.png'),
+      src: Utils.asset('images/sb-background.png'),
       zIndex: -10,
-
-      LightningAppOverlay: {
-        type: LightningAppOverlay,
-        alpha: 0
-      },
 
       Instructions: {
         type: Instructions,

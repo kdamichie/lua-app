@@ -7,8 +7,7 @@ export default class Logo extends Lightning.Component {
       y: 100,
       w: 200,
       h: 200,
-      src: Utils.asset('lua-tictactoe-logo.png')
-      // texture: { type: Lightning.textures.ImageTexture, src: Utils.asset('logo2.svg') },
+      src: Utils.asset('images/sb-ttt-title.png')
     };
   }
 }
