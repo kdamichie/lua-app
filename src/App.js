@@ -1,5 +1,5 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
-import Instructions from './components/instructions';
+// import Instructions from './components/instructions';
 import { FONT_FAMILY } from './constants/style';
 import About from './views/About';
 import Fallback from './views/Fallback';
@@ -19,15 +19,15 @@ export default class App extends Lightning.Component {
       w: 1920,
       h: 1080,
       src: Utils.asset('images/sb-background.png'),
-      zIndex: -10,
+      zIndex: -20,
 
-      Instructions: {
-        type: Instructions,
-        zIndex: -1,
-        x: (w) => w - 220,
-        y: (h) => h - 100,
-        alpha: 0
-      },
+      // Instructions: {
+      //   type: Instructions,
+      //   zIndex: -1,
+      //   x: (w) => w - 220,
+      //   y: (h) => h - 100,
+      //   alpha: 1
+      // },
 
       Splash: {
         type: Splash,
@@ -76,7 +76,6 @@ export default class App extends Lightning.Component {
 
         loaded() {
           this._setState('Main');
-          this.tag('Instructions').setSmooth('alpha', 1);
         }
       },
 

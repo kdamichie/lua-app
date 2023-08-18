@@ -7,7 +7,7 @@ export default class Logo extends Lightning.Component {
       y: 100,
       w: 200,
       h: 200,
-      src: Utils.asset('images/sb-ttt-title.png')
+      src: Utils.asset('images/nickalodeon-logo.png')
     };
   }
 }

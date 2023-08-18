@@ -1,12 +1,11 @@
 import { Lightning } from '@lightningjs/sdk';
-import Logo from '../components/logo';
 import Menu from '../components/main-menu/Menu';
 
 export default class Main extends Lightning.Component {
   static _template() {
     return {
       Logo: {
-        type: Logo,
+        src: 'images/sb-ttt-title.png',
         mount: 0.5,
         x: 1020,
         y: 150,
@@ -16,7 +15,6 @@ export default class Main extends Lightning.Component {
       },
 
       Menu: {
-        color: '00ff00',
         x: 800,
         y: 500,
         type: Menu,

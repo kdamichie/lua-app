@@ -1,6 +1,6 @@
 import { Lightning } from '@lightningjs/sdk';
 import Logo from '../components/logo';
-import { FONT_FAMILY } from '../constants/style';
+import { FONT_COLOR, FONT_COLOR2, FONT_FAMILY } from '../constants/style';
 import GameUtils from '../lib/GameUtils';
 
 export default class Game extends Lightning.Component {
@@ -40,27 +40,27 @@ export default class Game extends Lightning.Component {
         ScoreBoard: {
           x: 100,
           y: 370,
-          text: { text: 'Score', fontSize: 29, fontFace: FONT_FAMILY, fontStyle: 'bold' },
+          text: { text: 'Score', fontSize: 36, fontFace: FONT_FAMILY, fontStyle: 'bold', textColor: FONT_COLOR2 },
 
           Player: {
             y: 50,
-            text: { text: 'Player 0', fontSize: 25, fontFace: FONT_FAMILY }
+            text: { text: 'Player', fontSize: 25, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
           },
 
           AI: {
             y: 100,
-            text: { text: 'Computer 0', fontSize: 25, fontFace: FONT_FAMILY }
+            text: { text: 'Computer', fontSize: 25, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
           }
         },
 
         NextPlaying: {
           x: 100,
           y: 670,
-          text: { text: 'Next playing:      ', fontSize: 18, fontFace: FONT_FAMILY },
+          text: { text: 'Next playing:      ', fontSize: 18, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 },
 
           Player: {
             x: 130,
-            text: { text: '  Player', fontSize: 18, fontFace: FONT_FAMILY }
+            text: { text: '  Player', fontSize: 18, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
           }
         }
       },

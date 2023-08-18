@@ -1,10 +1,10 @@
 import { Lightning } from '@lightningjs/sdk';
-import { FONT_FAMILY } from '../../constants/style';
+import { FONT_COLOR, FONT_FAMILY } from '../../constants/style';
 
 export default class MenuItem extends Lightning.Component {
   static _template() {
     return {
-      text: { text: '', fontFace: FONT_FAMILY, fontSize: 50 }
+      text: { text: '', fontFace: FONT_FAMILY, fontSize: 50, textColor: FONT_COLOR }
     };
   }
 

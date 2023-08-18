@@ -1,5 +1,5 @@
 import { Lightning } from '@lightningjs/sdk';
-import { FONT_FAMILY } from '../../constants/style';
+import { FONT_COLOR, FONT_FAMILY } from '../../constants/style';
 import MenuItem from '../main-menu/MenuItem';
 
 export default class Menu extends Lightning.Component {
@@ -10,7 +10,7 @@ export default class Menu extends Lightning.Component {
       },
       FocusIndicator: {
         y: 5,
-        text: { text: '>', fontFace: FONT_FAMILY }
+        text: { text: '>', fontFace: FONT_FAMILY, textColor: FONT_COLOR }
       }
     };
   }
