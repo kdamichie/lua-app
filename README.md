@@ -1,4 +1,4 @@
-<img src="https://github.com/rlebre/lightningjs-tictactoe/blob/main/public/images/sb-logo.png" alt="logo" width="300"/>
+<img src="https://github.com/rlebre/lightningjs-tictactoe/blob/main/public/sb-logo.png" alt="logo" width="300"/>
 
 # Tic Tac Toe
 

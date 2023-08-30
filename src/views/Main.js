@@ -19,11 +19,18 @@ export default class Main extends Lightning.Component {
         y: 500,
         type: Menu,
         items: [
-          { label: 'New Game', action: 'start' },
-          { label: 'Continue', action: 'continue' },
-          { label: 'About', action: 'about' },
-          { label: 'Exit', action: 'exit' }
-        ]
+          { label: '', action: 'start' },
+          { label: 'HERE', action: 'https://gamex.np.gpe.xfinity.com/#play' },
+          { label: '', action: 'exit' }
+        ],
+        Logo: {
+          src: 'images/sb-menu.png',
+          mount: 0.5,
+          x: 240,
+          y: 120,
+          w: 350,
+          h: 225
+        }
       }
     };
   }

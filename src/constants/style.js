@@ -1,3 +1,5 @@
-export const FONT_FAMILY = 'SuperDonuts';
-export const FONT_COLOR = '0xbb00b2c7';
-export const FONT_COLOR2 = '0xbbf7ff00';
+import { Colors } from '@lightningjs/sdk';
+
+export const FONT_FAMILY = 'KrabbyPatty';
+export const FONT_COLOR = Colors('#1698BB').get();
+export const FONT_COLOR2 = Colors('#f7ff00').get();

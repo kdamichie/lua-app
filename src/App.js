@@ -111,6 +111,8 @@ export default class App extends Lightning.Component {
         menuSelect({ item }) {
           if (this._hasMethod(item.action)) {
             return this[item.action]();
+          } else if (item.action) {
+            window.location.href = item.action;
           } else {
             this._setState('Fallback');
           }

@@ -1,19 +1,16 @@
-import { Lightning } from '@lightningjs/sdk';
-import { FONT_COLOR, FONT_FAMILY } from '../constants/style';
+import { Colors, Lightning } from '@lightningjs/sdk';
 
 export default class Splash extends Lightning.Component {
   static _template() {
     return {
       Logo: {
-        x: 960,
-        y: 540,
-        mount: 0.3,
-        text: {
-          text: 'Loading...',
-          fontSize: 100,
-          fontFace: FONT_FAMILY,
-          textColor: FONT_COLOR
-        }
+        src: 'images/sb-loading.png',
+        mount: 0.5,
+        x: 1020,
+        y: 625,
+        w: 350,
+        h: 350
+        // shader: { type: Lightning.shaders.FadeOut, fade: 20 }
       }
     };
   }
