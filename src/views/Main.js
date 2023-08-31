@@ -20,16 +20,16 @@ export default class Main extends Lightning.Component {
         type: Menu,
         items: [
           { label: '', action: 'start' },
-          { label: 'HERE', action: 'https://gamex.np.gpe.xfinity.com/#play' },
+          { label: '', action: 'https://gamex.np.gpe.xfinity.com/#play' },
           { label: '', action: 'exit' }
         ],
         Logo: {
           src: 'images/sb-menu.png',
           mount: 0.5,
-          x: 240,
-          y: 120,
-          w: 350,
-          h: 225
+          x: 290,
+          y: 115,
+          w: 600,
+          h: 275
         }
       }
     };

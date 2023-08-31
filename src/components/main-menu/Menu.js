@@ -1,5 +1,4 @@
 import { Lightning } from '@lightningjs/sdk';
-import { FONT_COLOR, FONT_FAMILY } from '../../constants/style';
 import MenuItem from '../main-menu/MenuItem';
 
 export default class Menu extends Lightning.Component {
@@ -9,8 +8,14 @@ export default class Menu extends Lightning.Component {
         x: 40
       },
       FocusIndicator: {
-        y: 5,
-        text: { text: '>', fontFace: FONT_FAMILY, textColor: FONT_COLOR }
+        Logo: {
+          src: 'images/sb-pineapple.png',
+          mount: 0.5,
+          x: 0,
+          y: 15,
+          w: 50,
+          h: 75
+        }
       }
     };
   }
