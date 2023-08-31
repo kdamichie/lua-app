@@ -9,7 +9,7 @@ import Splash from './views/Splash';
 
 export default class App extends Lightning.Component {
   static getFonts() {
-    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/SuperDonuts.ttf') }];
+    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/KrabbyPatty.ttf') }];
   }
 
   static _template() {

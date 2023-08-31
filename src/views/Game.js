@@ -1,36 +1,39 @@
-import { Lightning } from '@lightningjs/sdk';
+import { Lightning, Utils } from '@lightningjs/sdk';
 import Logo from '../components/logo';
-import { FONT_COLOR, FONT_COLOR2, FONT_FAMILY } from '../constants/style';
+import { FONT_COLOR, FONT_COLOR2, FONT_FAMILY, GRID_COLOR } from '../constants/style';
 import GameUtils from '../lib/GameUtils';
 
 export default class Game extends Lightning.Component {
   static _template() {
     return {
       Game: {
-        PlayerPosition: {
-          rect: true,
-          w: 250,
-          h: 250,
-          color: 0x40ffffff,
-          x: 625,
-          y: 125,
-          shader: { type: Lightning.shaders.RoundedRectangle, radius: 25 }
-        },
-
         Field: {
+          rect: true,
+          w: 900,
+          h: 900,
+          color: 0x701698bb,
           x: 600,
           y: 100,
+          shader: { type: Lightning.shaders.RoundedRectangle, radius: 25 },
           children: [
-            { rect: true, w: 1, h: 5, y: 300 },
-            { rect: true, w: 1, h: 5, y: 600 },
-            { rect: true, h: 1, w: 5, x: 300, y: 0 },
-            { rect: true, h: 1, w: 5, x: 600, y: 0 }
+            { rect: true, w: 1, h: 10, y: 300, color: GRID_COLOR },
+            { rect: true, w: 1, h: 10, y: 600, color: GRID_COLOR },
+            { rect: true, h: 1, w: 10, x: 300, y: 0, color: GRID_COLOR },
+            { rect: true, h: 1, w: 10, x: 600, y: 0, color: GRID_COLOR }
           ]
         },
 
         Markers: {
           x: 600,
           y: 100
+        },
+
+        PlayerPosition: {
+          w: 250,
+          h: 250,
+          x: 625,
+          y: 125,
+          src: Utils.asset('images/sb-player.png')
         },
 
         Logo: {
@@ -44,23 +47,23 @@ export default class Game extends Lightning.Component {
 
           Player: {
             y: 50,
-            text: { text: 'Player', fontSize: 25, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
+            text: { text: 'Sponge Bob 0', fontSize: 25, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
           },
 
           AI: {
             y: 100,
-            text: { text: 'Computer', fontSize: 25, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
+            text: { text: 'Squidward 0', fontSize: 25, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
           }
         },
 
         NextPlaying: {
           x: 100,
-          y: 670,
+          y: 550,
           text: { text: 'Next playing:      ', fontSize: 18, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 },
 
           Player: {
             x: 130,
-            text: { text: '  Player', fontSize: 18, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
+            text: { text: 'Sponge Bob', fontSize: 18, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
           }
         }
       },
@@ -169,7 +172,7 @@ export default class Game extends Lightning.Component {
             Game: {
               NextPlaying: {
                 Player: {
-                  text: { text: 'Computer' }
+                  text: { text: 'Squidward' }
                 }
               }
             }
@@ -197,7 +200,7 @@ export default class Game extends Lightning.Component {
             Game: {
               NextPlaying: {
                 Player: {
-                  text: { text: 'Player' }
+                  text: { text: 'Sponge Bob' }
                 }
               }
             }
@@ -237,12 +240,17 @@ export default class Game extends Lightning.Component {
                   Game: {
                     smooth: { alpha: 0 },
                     ScoreBoard: {
-                      Player: { text: { text: `Player ${this._playerScore}` } },
-                      AI: { text: { text: `Computer ${this._aiScore}` } }
+                      Player: { text: { text: `Sponge Bob ${this._playerScore}` } },
+                      AI: { text: { text: `Squidward ${this._aiScore}` } }
                     }
                   },
                   Notification: {
-                    text: { text: `${winner === 'X' ? 'Player 1' : 'Computer'} wins (press enter to play again)` },
+                    x: 275,
+                    y: 100,
+                    text: {
+                      text: `${winner === 'X' ? 'Sponge Bob' : 'Squidward'} wins (press select to play again)`,
+                      textColor: FONT_COLOR2
+                    },
                     smooth: { alpha: 1 }
                   }
                 });
@@ -256,7 +264,9 @@ export default class Game extends Lightning.Component {
                     smooth: { alpha: 0 }
                   },
                   Notification: {
-                    text: { text: 'Tie (press enter to try again)' },
+                    x: 500,
+                    y: 100,
+                    text: { text: 'Tie (press select to try again)', textColor: FONT_COLOR2 },
                     smooth: { alpha: 1 }
                   }
                 });
@@ -273,7 +283,7 @@ export default class Game extends Lightning.Component {
       return {
         x: (idx % 3) * 300 + 110,
         y: ~~(idx / 3) * 300 + 90,
-        text: { text: el === 'e' ? '' : `${el}`, fontSize: 100 }
+        text: { text: el === 'e' ? '' : `${el}`, fontFace: FONT_FAMILY, textColor: FONT_COLOR2, fontSize: 100 }
       };
     });
   }
