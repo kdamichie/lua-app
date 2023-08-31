@@ -6,6 +6,7 @@ import Fallback from './views/Fallback';
 import Game from './views/Game';
 import Main from './views/Main';
 import Splash from './views/Splash';
+import Player from './views/Player';
 
 export default class App extends Lightning.Component {
   static getFonts() {
@@ -54,6 +55,10 @@ export default class App extends Lightning.Component {
 
       About: {
         type: About,
+        alpha: 0
+      },
+      VideoPlayer: {
+        type: Player,
         alpha: 0
       }
     };
@@ -182,6 +187,24 @@ export default class App extends Lightning.Component {
         _handleBack() {
           this._setState('Main');
         }
+      },
+
+      class Player extends this {
+        // $enter() {
+        //   this.tag('Player').setSmooth('alpha', 1);
+        // }
+        // $exit() {
+        //   this.tag('Player').setSmooth('alpha', 0);
+        // }
+        // _handleEnter() {
+        //   this._setState('Player');
+        // }
+        // _handleMenu() {
+        //   this._setState('Main');
+        // }
+        // _handleBack() {
+        //   this._setState('Main');
+        // }
       }
     ];
   }
