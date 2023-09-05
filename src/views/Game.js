@@ -1,6 +1,6 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
 import Logo from '../components/logo';
-import { FONT_COLOR, FONT_COLOR2, FONT_FAMILY, GRID_COLOR } from '../constants/style';
+import { FONT_COLOR, FONT_FAMILY, GRID_COLOR } from '../constants/style';
 import GameUtils from '../lib/GameUtils';
 
 export default class Game extends Lightning.Component {
@@ -43,27 +43,27 @@ export default class Game extends Lightning.Component {
         ScoreBoard: {
           x: 100,
           y: 370,
-          text: { text: 'Score', fontSize: 36, fontFace: FONT_FAMILY, fontStyle: 'bold', textColor: FONT_COLOR2 },
+          text: { text: 'Score', fontSize: 36, fontFace: FONT_FAMILY, fontStyle: 'bold', textColor: FONT_COLOR },
 
           Player: {
             y: 50,
-            text: { text: 'Sponge Bob 0', fontSize: 25, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
+            text: { text: 'Sponge Bob 0', fontSize: 25, fontFace: FONT_FAMILY, textColor: FONT_COLOR }
           },
 
           AI: {
             y: 100,
-            text: { text: 'Squidward 0', fontSize: 25, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
+            text: { text: 'Squidward 0', fontSize: 25, fontFace: FONT_FAMILY, textColor: FONT_COLOR }
           }
         },
 
         NextPlaying: {
           x: 100,
           y: 550,
-          text: { text: 'Next playing:      ', fontSize: 18, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 },
+          text: { text: 'Next playing:      ', fontSize: 18, fontFace: FONT_FAMILY, textColor: FONT_COLOR },
 
           Player: {
             x: 130,
-            text: { text: 'Sponge Bob', fontSize: 18, fontFace: FONT_FAMILY, textColor: FONT_COLOR2 }
+            text: { text: 'Sponge Bob', fontSize: 18, fontFace: FONT_FAMILY, textColor: FONT_COLOR }
           }
         }
       },
@@ -232,8 +232,12 @@ export default class Game extends Lightning.Component {
             class Winner extends this {
               $enter(_, { winner }) {
                 if (winner === 'X') {
+                  let audio = new Audio('sounds/sb-win.mp3');
+                  audio.play();
                   this._playerScore += 1;
                 } else {
+                  let audio = new Audio('sounds/sb-lose.mp3');
+                  audio.play();
                   this._aiScore += 1;
                 }
                 this.patch({
@@ -249,7 +253,7 @@ export default class Game extends Lightning.Component {
                     y: 100,
                     text: {
                       text: `${winner === 'X' ? 'Sponge Bob' : 'Squidward'} wins (press select to play again)`,
-                      textColor: FONT_COLOR2
+                      textColor: FONT_COLOR
                     },
                     smooth: { alpha: 1 }
                   }
@@ -259,6 +263,8 @@ export default class Game extends Lightning.Component {
 
             class Tie extends this {
               $enter() {
+                let audio = new Audio('sounds/sb-draw.mp3');
+                audio.play();
                 this.patch({
                   Game: {
                     smooth: { alpha: 0 }
@@ -266,7 +272,7 @@ export default class Game extends Lightning.Component {
                   Notification: {
                     x: 500,
                     y: 100,
-                    text: { text: 'Tie (press select to try again)', textColor: FONT_COLOR2 },
+                    text: { text: 'Tie (press select to try again)', textColor: FONT_COLOR },
                     smooth: { alpha: 1 }
                   }
                 });
@@ -283,7 +289,7 @@ export default class Game extends Lightning.Component {
       return {
         x: (idx % 3) * 300 + 110,
         y: ~~(idx / 3) * 300 + 90,
-        text: { text: el === 'e' ? '' : `${el}`, fontFace: FONT_FAMILY, textColor: FONT_COLOR2, fontSize: 100 }
+        text: { text: el === 'e' ? '' : `${el}`, fontFace: FONT_FAMILY, textColor: FONT_COLOR, fontSize: 100 }
       };
     });
   }
