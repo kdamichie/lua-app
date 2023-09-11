@@ -57,7 +57,7 @@ export default class App extends Lightning.Component {
         type: About,
         alpha: 0
       },
-      VideoPlayer: {
+      Player: {
         type: Player,
         alpha: 0
       }
@@ -65,7 +65,8 @@ export default class App extends Lightning.Component {
   }
 
   _setup() {
-    this._setState('Splash');
+    console.log('SETUP');
+    this._setState('Player');
   }
 
   static _states() {
@@ -190,21 +191,21 @@ export default class App extends Lightning.Component {
       },
 
       class Player extends this {
-        // $enter() {
-        //   this.tag('Player').setSmooth('alpha', 1);
-        // }
-        // $exit() {
-        //   this.tag('Player').setSmooth('alpha', 0);
-        // }
-        // _handleEnter() {
-        //   this._setState('Player');
-        // }
-        // _handleMenu() {
-        //   this._setState('Main');
-        // }
-        // _handleBack() {
-        //   this._setState('Main');
-        // }
+        $enter() {
+          this.tag('Player').setSmooth('alpha', 1);
+        }
+        $exit() {
+          this.tag('Player').setSmooth('alpha', 0);
+        }
+        _handleEnter() {
+          this._setState('Player');
+        }
+        _handleMenu() {
+          this._setState('Main');
+        }
+        _handleBack() {
+          this._setState('Main');
+        }
       }
     ];
   }

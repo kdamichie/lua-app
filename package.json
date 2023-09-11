@@ -15,7 +15,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@lightningjs/sdk": "^4.8.3"
+    "@lightningjs/sdk": "^5.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
