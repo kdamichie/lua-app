@@ -5,22 +5,21 @@ const videoUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/samp
 export default class Player extends Lightning.Component {
   static _template() {
     return {
-      //return video container
-      Content: {
-        text: 'hello'
+      Background: {
+        w: 1920,
+        h: 1080
       }
     };
   }
+
   _firstActive() {
     console.log(VideoPlayer);
     VideoPlayer.consumer(this);
-    console.log('open video');
     VideoPlayer.open(videoUrl);
-    console.log('SHOW');
     console.log(VideoPlayer);
     VideoPlayer.show();
 
-    //VideoPlayer.setTimeout is not a function
+    //ERROR- VideoPlayer.setTimeout is not a function
     // VideoPlayer.setTimeout(() => {
     //   console.log('TIMEOUT');
     //   this._setState('Main');
