@@ -2,6 +2,7 @@ import { Lightning, Utils } from '@lightningjs/sdk';
 import { FONT_FAMILY } from './constants/style';
 import Game from './views/Game';
 import Main from './views/Main';
+import Intro from './views/Intro';
 import Splash from './views/Splash';
 
 export default class App extends Lightning.Component {
@@ -15,13 +16,19 @@ export default class App extends Lightning.Component {
       rect: true,
       w: 1920,
       h: 1080,
-      src: Utils.asset('images/sb-background.png'),
+      src: Utils.asset('images/xfg-background.png'),
       zIndex: -20,
+
+      Intro: {
+        type: Intro,
+        alpha: 0,
+        signals: { select: 'menuSelect' }
+      },
 
       Splash: {
         type: Splash,
-        signals: { loaded: true },
-        alpha: 0
+        alpha: 0,
+        signals: { loaded: true }
       },
 
       Main: {
@@ -39,11 +46,47 @@ export default class App extends Lightning.Component {
   }
 
   _setup() {
-    this._setState('Splash');
+    this._setState('Intro');
   }
 
   static _states() {
     return [
+      class Intro extends this {
+        $enter() {
+          this.tag('Intro').patch({
+            smooth: { alpha: 1, y: 0 }
+          });
+        }
+
+        $exit() {
+          this.tag('Intro').patch({
+            smooth: { alpha: 0, y: 100 }
+          });
+        }
+
+        _getFocused() {
+          return this.tag('Intro');
+        }
+
+        start() {
+          this._setState('Splash');
+        }
+
+        exit() {
+          this.application.closeApp();
+        }
+
+        menuSelect({ item }) {
+          if (this._hasMethod(item.action)) {
+            return this[item.action]();
+          } else if (item.action) {
+            window.location.href = item.action;
+          } else {
+            this._setState('Intro');
+          }
+        }
+      },
+
       class Splash extends this {
         $enter() {
           this.tag('Splash').setSmooth('alpha', 1);
@@ -82,10 +125,6 @@ export default class App extends Lightning.Component {
           this._setState('Game');
         }
 
-        about() {
-          this._setState('About');
-        }
-
         exit() {
           this.application.closeApp();
         }
@@ -96,7 +135,7 @@ export default class App extends Lightning.Component {
           } else if (item.action) {
             window.location.href = item.action;
           } else {
-            this._setState('Fallback');
+            this._setState('Intro');
           }
         }
       },

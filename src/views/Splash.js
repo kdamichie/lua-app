@@ -1,4 +1,4 @@
-import { Colors, Lightning } from '@lightningjs/sdk';
+import { Lightning } from '@lightningjs/sdk';
 
 export default class Splash extends Lightning.Component {
   static _template() {
@@ -10,7 +10,6 @@ export default class Splash extends Lightning.Component {
         y: 625,
         w: 350,
         h: 350
-        // shader: { type: Lightning.shaders.FadeOut, fade: 20 }
       }
     };
   }
@@ -29,8 +28,7 @@ export default class Splash extends Lightning.Component {
       this.signal('loaded');
     });
 
-    // start the animation
-    this._pulse.start();
+    // start the animation    this._pulse.start();
   }
 
   _active() {
