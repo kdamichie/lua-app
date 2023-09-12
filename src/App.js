@@ -197,6 +197,9 @@ export default class App extends Lightning.Component {
         $exit() {
           this.tag('Player').setSmooth('alpha', 0);
         }
+        _getFocused() {
+          return this.tag('Player');
+        }
         _handleEnter() {
           this._setState('Player');
         }
