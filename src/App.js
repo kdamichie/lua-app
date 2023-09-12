@@ -1,12 +1,12 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
-import LightningAppOverlay from './views/LightningAppOverlay';
-import Instructions from './components/instructions';
+// import Instructions from './components/instructions';
 import { FONT_FAMILY } from './constants/style';
 import About from './views/About';
 import Fallback from './views/Fallback';
 import Game from './views/Game';
 import Main from './views/Main';
 import Splash from './views/Splash';
+import Player from './views/Player';
 
 export default class App extends Lightning.Component {
   static getFonts() {
@@ -19,21 +19,8 @@ export default class App extends Lightning.Component {
       rect: true,
       w: 1920,
       h: 1080,
-      src: Utils.asset('images/lua-background.png'),
-      zIndex: -10,
-
-      LightningAppOverlay: {
-        type: LightningAppOverlay,
-        alpha: 0
-      },
-
-      Instructions: {
-        type: Instructions,
-        zIndex: -1,
-        x: (w) => w - 220,
-        y: (h) => h - 100,
-        alpha: 0
-      },
+      src: Utils.asset('images/sb-background.png'),
+      zIndex: -20,
 
       Splash: {
         type: Splash,
@@ -61,12 +48,17 @@ export default class App extends Lightning.Component {
       About: {
         type: About,
         alpha: 0
+      },
+      Player: {
+        type: Player,
+        alpha: 0
       }
     };
   }
 
   _setup() {
-    this._setState('Splash');
+    console.log('SETUP');
+    this._setState('Player');
   }
 
   static _states() {
@@ -82,7 +74,6 @@ export default class App extends Lightning.Component {
 
         loaded() {
           this._setState('Main');
-          this.tag('Instructions').setSmooth('alpha', 1);
         }
       },
 
@@ -118,6 +109,8 @@ export default class App extends Lightning.Component {
         menuSelect({ item }) {
           if (this._hasMethod(item.action)) {
             return this[item.action]();
+          } else if (item.action) {
+            window.location.href = item.action;
           } else {
             this._setState('Fallback');
           }
@@ -181,6 +174,24 @@ export default class App extends Lightning.Component {
           this._setState('Main');
         }
 
+        _handleMenu() {
+          this._setState('Main');
+        }
+        _handleBack() {
+          this._setState('Main');
+        }
+      },
+
+      class Player extends this {
+        $enter() {
+          this.tag('Player').setSmooth('alpha', 1);
+        }
+        $exit() {
+          this.tag('Player').setSmooth('alpha', 0);
+        }
+        _handleEnter() {
+          this._setState('Player');
+        }
         _handleMenu() {
           this._setState('Main');
         }
