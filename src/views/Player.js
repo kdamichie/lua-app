@@ -18,15 +18,14 @@ export default class Player extends Lightning.Component {
     VideoPlayer.open(videoUrl);
     console.log(VideoPlayer);
     VideoPlayer.show();
-
-    this.timeout = setTimeout(() => {
-      console.log('set state main after timeout');
-      VideoPlayer.hide();
-      this._setState('Main');
-    }, timeout);
   }
   _handleEnter() {
     VideoPlayer.playPause();
+  }
+
+  hidePlayer() {
+    VideoPlayer.playPause();
+    VideoPlayer.hide();
   }
 }
 
