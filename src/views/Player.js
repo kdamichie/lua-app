@@ -1,7 +1,7 @@
 import { Lightning, VideoPlayer } from '@lightningjs/sdk';
 
 const videoUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
-//const timeout = 3000;
+const timeout = 15000;
 export default class Player extends Lightning.Component {
   static _template() {
     return {
@@ -19,19 +19,20 @@ export default class Player extends Lightning.Component {
     console.log(VideoPlayer);
     VideoPlayer.show();
 
-    //ERROR- VideoPlayer.setTimeout is not a function
-    // VideoPlayer.setTimeout(() => {
-    //   console.log('TIMEOUT');
-    //   this._setState('Main');
-    // }, timeout);
-
-    // set timeout,set state to main menu
-    //metrological sdk
-    // method for parent to call to fire video player, hide method, pause etc.
-    // don't unload to resume from same place
+    this.timeout = setTimeout(() => {
+      console.log('set state main after timeout');
+      VideoPlayer.hide();
+      this._setState('Main');
+    }, timeout);
   }
-
   _handleEnter() {
     VideoPlayer.playPause();
   }
 }
+
+//notes:
+// set timeout,set state to main menu
+// metrological sdk
+// method for parent to call to fire video player, hide method, pause etc.
+// don't unload to resume from same place
+// }

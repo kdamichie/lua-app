@@ -247,22 +247,36 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@lightningjs/core@*":
+"@lightningjs/core@^2.6.0", "@lightningjs/core@^2.7.0":
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/@lightningjs/core/-/core-2.11.0.tgz#ba4451094972eadb43d798a4190d469d4a4a0b9c"
   integrity sha512-i5MVd9845igNEcMFrsTOxPJVwZGyxCIv70VC/W8RNPDsTP7Hehzdn++TVky+7XQ6gdkBfpxBM5/k+IKIpn83NQ==
 
-"@lightningjs/sdk@^4.8.3":
-  version "4.8.3"
-  resolved "https://registry.yarnpkg.com/@lightningjs/sdk/-/sdk-4.8.3.tgz#be08b42cfd35bdc471e1994da82dec2c95aecdf8"
-  integrity sha512-PeGuMmMi0zYxXtQi/di1f23gHNKZ9nLqDQInGomLiq85iJ8BPhT3vchzbrYlHTxdyRX+iZ5b9PYL4uRUgPSPgQ==
+"@lightningjs/sdk@^5.4.1":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@lightningjs/sdk/-/sdk-5.4.1.tgz#44335ee10ec014beccc1644f88a410efd638689e"
+  integrity sha512-8yJ6h4IEflH7A3mDGrjkjABtuAVPKmHotEGg9/75g1nv7aK5ShZHQ3PS1633JIpJCFiYFEhxqAkeq1DUblfqnw==
   dependencies:
     "@babel/polyfill" "^7.11.5"
-    "@lightningjs/core" "*"
+    "@lightningjs/core" "^2.7.0"
+    "@metrological/sdk" "^1.0.0"
     "@michieljs/execute-as-promise" "^1.0.0"
     deepmerge "^4.2.2"
-    localCookie "github:WebPlatformForEmbedded/localCookie"
+    is-plain-object "^5.0.0"
+    localcookies "^2.0.0"
     shelljs "^0.8.5"
+    url-polyfill "^1.1.10"
+    whatwg-fetch "^3.0.0"
+
+"@metrological/sdk@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@metrological/sdk/-/sdk-1.0.0.tgz#4d3d0bd444cf210b94c8fd613b073f77fa698a58"
+  integrity sha512-FJMDZ3RlhnJYsUsO8cDPjT28UV7ena1hNS1gbSLqpSTSTA5J+1B776b14YaZjD7tvpTVn5vtJdOsG3wWU0yJHg==
+  dependencies:
+    "@babel/polyfill" "^7.11.5"
+    "@lightningjs/core" "^2.6.0"
+    "@michieljs/execute-as-promise" "^1.0.0"
+    deepmerge "^4.2.2"
     url-polyfill "^1.1.10"
     whatwg-fetch "^3.0.0"
 
@@ -2432,6 +2446,11 @@ is-plain-object@^2.0.4:
   dependencies:
     isobject "^3.0.1"
 
+is-plain-object@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/is-plain-object/-/is-plain-object-5.0.0.tgz#4427f50ab3429e9025ea7d52e9043a9ef4159344"
+  integrity sha512-VRSzKkbMm5jMDoKLbltAkFQ5Qr7VDiTFGXxYFXXowVj387GeGNOCsOH6Msy00SGZ3Fp84b1Naa1psqgcCIEP5Q==
+
 is-promise@^2.1.0:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/is-promise/-/is-promise-2.2.2.tgz#39ab959ccbf9a774cf079f7b40c7a26f763135f1"
@@ -2633,9 +2652,10 @@ loader-runner@^4.2.0:
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-4.3.0.tgz#c1b4a163b99f614830353b16755e7149ac2314e1"
   integrity sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg==
 
-"localCookie@github:WebPlatformForEmbedded/localCookie":
+localcookies@^2.0.0:
   version "2.0.0"
-  resolved "https://codeload.github.com/WebPlatformForEmbedded/localCookie/tar.gz/9c92b80bfbf89bf562fa2a196c7f1d459b9aa380"
+  resolved "https://registry.yarnpkg.com/localcookies/-/localcookies-2.0.0.tgz#aeff09d6c60f4f4313a508107390aca362df1109"
+  integrity sha512-QBzAvq1GQNjWKnT+W4dpx5iTWsLkeOdzl1YJYbzL3L8L3EC2uPr1PXUjLR5WHakKrNeA81qL4C4tzCo01BWP5g==
 
 locate-path@^5.0.0:
   version "5.0.0"
