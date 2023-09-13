@@ -1,8 +1,5 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
-// import Instructions from './components/instructions';
 import { FONT_FAMILY } from './constants/style';
-import About from './views/About';
-import Fallback from './views/Fallback';
 import Game from './views/Game';
 import Main from './views/Main';
 import Splash from './views/Splash';
@@ -10,7 +7,7 @@ import Player from './views/Player';
 
 export default class App extends Lightning.Component {
   static getFonts() {
-    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/SuperDonuts.ttf') }];
+    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/KrabbyPatty.ttf') }];
   }
 
   static _template() {
@@ -21,14 +18,6 @@ export default class App extends Lightning.Component {
       h: 1080,
       src: Utils.asset('images/sb-background.png'),
       zIndex: -20,
-
-      // Instructions: {
-      //   type: Instructions,
-      //   zIndex: -1,
-      //   x: (w) => w - 220,
-      //   y: (h) => h - 100,
-      //   alpha: 1
-      // },
 
       Splash: {
         type: Splash,
@@ -42,20 +31,10 @@ export default class App extends Lightning.Component {
         signals: { select: 'menuSelect' }
       },
 
-      Fallback: {
-        type: Fallback,
-        alpha: 0
-      },
-
       Game: {
         type: Game,
         alpha: 0,
         signals: { back: 'back' }
-      },
-
-      About: {
-        type: About,
-        alpha: 0
       },
       Player: {
         type: Player,
@@ -81,6 +60,9 @@ export default class App extends Lightning.Component {
         }
 
         loaded() {
+          let themeMusic = new Audio('sounds/sb-theme.mp3');
+          themeMusic.muted = false;
+          themeMusic.play();
           this._setState('Main');
         }
       },
@@ -139,53 +121,6 @@ export default class App extends Lightning.Component {
         }
 
         back() {
-          this._setState('Main');
-        }
-      },
-
-      class Fallback extends this {
-        $enter() {
-          this.tag('Fallback').setSmooth('alpha', 1);
-        }
-
-        $exit() {
-          this.tag('Fallback').setSmooth('alpha', 0);
-        }
-
-        _getFocused() {
-          return this.tag('Fallback');
-        }
-
-        _handleEnter() {
-          this._setState('Main');
-        }
-
-        _handleMenu() {
-          this._setState('Main');
-        }
-
-        _handleBack() {
-          this._setState('Main');
-        }
-      },
-
-      class About extends this {
-        $enter() {
-          this.tag('About').setSmooth('alpha', 1);
-        }
-
-        $exit() {
-          this.tag('About').setSmooth('alpha', 0);
-        }
-
-        _handleEnter() {
-          this._setState('Main');
-        }
-
-        _handleMenu() {
-          this._setState('Main');
-        }
-        _handleBack() {
           this._setState('Main');
         }
       },

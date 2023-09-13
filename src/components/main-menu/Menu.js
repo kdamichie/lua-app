@@ -58,10 +58,14 @@ export default class Menu extends Lightning.Component {
   }
 
   _handleUp() {
+    let audio = new Audio('sounds/sb-movement.mp3');
+    audio.play();
     this._setIndex(Math.max(0, --this._index));
   }
 
   _handleDown() {
+    let audio = new Audio('sounds/sb-movement.mp3');
+    audio.play();
     this._setIndex(Math.min(++this._index, this.items.length - 1));
   }
 }
