@@ -110,6 +110,11 @@ export default class App extends Lightning.Component {
       class Game extends this {
         $enter() {
           this.tag('Game').setSmooth('alpha', 1);
+          this.timeout = setTimeout(() => {
+            console.log('set timeout for game');
+            this._setState('Player');
+            this.tag('Player').showPlayer();
+          }, 30000);
         }
 
         $exit() {
