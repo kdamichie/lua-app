@@ -1,44 +1,28 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
-import LightningAppOverlay from './views/LightningAppOverlay';
-import Instructions from './components/instructions';
 import { FONT_FAMILY } from './constants/style';
-import About from './views/About';
-import Fallback from './views/Fallback';
 import Game from './views/Game';
 import Main from './views/Main';
+import Intro from './views/Intro';
 import Splash from './views/Splash';
 
 export default class App extends Lightning.Component {
   static getFonts() {
-    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/PumpOpti-Medium.otf') }];
+    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/KrabbyPatty.ttf') }];
   }
 
   static _template() {
     console.log('started');
     return {
-      rect: true,
-      w: 1920,
-      h: 1080,
-      src: Utils.asset('images/lua-background.png'),
-      zIndex: -10,
-
-      LightningAppOverlay: {
-        type: LightningAppOverlay,
-        alpha: 0
-      },
-
-      Instructions: {
-        type: Instructions,
-        zIndex: -1,
-        x: (w) => w - 220,
-        y: (h) => h - 100,
-        alpha: 0
+      Intro: {
+        type: Intro,
+        alpha: 0,
+        signals: { select: 'menuSelect' }
       },
 
       Splash: {
         type: Splash,
-        signals: { loaded: true },
-        alpha: 0
+        alpha: 0,
+        signals: { loaded: true }
       },
 
       Main: {
@@ -47,30 +31,60 @@ export default class App extends Lightning.Component {
         signals: { select: 'menuSelect' }
       },
 
-      Fallback: {
-        type: Fallback,
-        alpha: 0
-      },
-
       Game: {
         type: Game,
         alpha: 0,
         signals: { back: 'back' }
-      },
-
-      About: {
-        type: About,
-        alpha: 0
       }
     };
   }
 
   _setup() {
-    this._setState('Splash');
+    this._setState('Intro');
   }
 
   static _states() {
     return [
+      class Intro extends this {
+        $enter() {
+          this.tag('Intro').patch({
+            smooth: { alpha: 1, y: 0 }
+          });
+        }
+
+        $exit() {
+          this.tag('Intro').patch({
+            smooth: { alpha: 0, y: 100 }
+          });
+        }
+
+        _getFocused() {
+          return this.tag('Intro');
+        }
+
+        start() {
+          console.log('Kurt');
+          this._setState('Splash');
+        }
+
+        exit() {
+          this.application.closeApp();
+        }
+
+        menuSelect({ item }) {
+          console.log('HERE', item.constructor.name);
+          if (item.constructor.name == 'StartButton') {
+            console.log('Kurt1');
+            this._setState('Splash');
+          } else if (item.constructor.name == 'SkipButton') {
+            console.log('Kurt1');
+            this._setState('Game');
+          } else {
+            console.log('Fallthrough');
+          }
+        }
+      },
+
       class Splash extends this {
         $enter() {
           this.tag('Splash').setSmooth('alpha', 1);
@@ -81,8 +95,10 @@ export default class App extends Lightning.Component {
         }
 
         loaded() {
+          let themeMusic = new Audio('sounds/sb-theme.mp3');
+          themeMusic.muted = true;
+          themeMusic.play();
           this._setState('Main');
-          this.tag('Instructions').setSmooth('alpha', 1);
         }
       },
 
@@ -107,10 +123,6 @@ export default class App extends Lightning.Component {
           this._setState('Game');
         }
 
-        about() {
-          this._setState('About');
-        }
-
         exit() {
           this.application.closeApp();
         }
@@ -118,8 +130,10 @@ export default class App extends Lightning.Component {
         menuSelect({ item }) {
           if (this._hasMethod(item.action)) {
             return this[item.action]();
+          } else if (item.action) {
+            window.location.href = item.action;
           } else {
-            this._setState('Fallback');
+            this._setState('Intro');
           }
         }
       },
@@ -138,53 +152,6 @@ export default class App extends Lightning.Component {
         }
 
         back() {
-          this._setState('Main');
-        }
-      },
-
-      class Fallback extends this {
-        $enter() {
-          this.tag('Fallback').setSmooth('alpha', 1);
-        }
-
-        $exit() {
-          this.tag('Fallback').setSmooth('alpha', 0);
-        }
-
-        _getFocused() {
-          return this.tag('Fallback');
-        }
-
-        _handleEnter() {
-          this._setState('Main');
-        }
-
-        _handleMenu() {
-          this._setState('Main');
-        }
-
-        _handleBack() {
-          this._setState('Main');
-        }
-      },
-
-      class About extends this {
-        $enter() {
-          this.tag('About').setSmooth('alpha', 1);
-        }
-
-        $exit() {
-          this.tag('About').setSmooth('alpha', 0);
-        }
-
-        _handleEnter() {
-          this._setState('Main');
-        }
-
-        _handleMenu() {
-          this._setState('Main');
-        }
-        _handleBack() {
           this._setState('Main');
         }
       }

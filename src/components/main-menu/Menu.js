@@ -1,23 +1,26 @@
 import { Lightning } from '@lightningjs/sdk';
-import { FONT_FAMILY } from '../../constants/style';
 import MenuItem from '../main-menu/MenuItem';
 
 export default class Menu extends Lightning.Component {
   static _template() {
     return {
-      Items: {
-        x: 40
-      },
+      Items: {},
       FocusIndicator: {
-        y: 5,
-        text: { text: '>', fontFace: FONT_FAMILY }
+        Logo: {
+          src: 'images/sb-pineapple.png',
+          mount: 0.5,
+          x: 0,
+          y: 15,
+          w: 50,
+          h: 75
+        }
       }
     };
   }
 
   set items(values) {
-    this.tag('Items').children = values.map((el, idx) => {
-      return { type: MenuItem, action: el.action, label: el.label, y: idx * 90 };
+    this.tag('Items').children = values.map((elm, idx) => {
+      return { type: MenuItem, action: elm.action };
     });
   }
 
@@ -30,7 +33,7 @@ export default class Menu extends Lightning.Component {
   }
 
   _setIndex(idx) {
-    this.tag('FocusIndicator').setSmooth('y', idx * 90 + 5);
+    this.tag('FocusIndicator').setSmooth('y', idx * 90);
     this._index = idx;
   }
 
@@ -53,10 +56,14 @@ export default class Menu extends Lightning.Component {
   }
 
   _handleUp() {
+    let audio = new Audio('sounds/sb-movement.mp3');
+    audio.play();
     this._setIndex(Math.max(0, --this._index));
   }
 
   _handleDown() {
+    let audio = new Audio('sounds/sb-movement.mp3');
+    audio.play();
     this._setIndex(Math.min(++this._index, this.items.length - 1));
   }
 }

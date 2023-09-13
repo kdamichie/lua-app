@@ -1,17 +1,21 @@
-import { Lightning } from '@lightningjs/sdk';
-import { FONT_FAMILY } from '../constants/style';
+import { Lightning, Utils } from '@lightningjs/sdk';
 
 export default class Splash extends Lightning.Component {
   static _template() {
     return {
+      rect: true,
+      w: 1920,
+      h: 1080,
+      src: Utils.asset('images/sb-background.png'),
+      zIndex: -20,
+
       Logo: {
-        x: 960,
-        y: 540,
+        src: 'images/sb-loading.png',
         mount: 0.5,
-        text: {
-          text: 'Loading...',
-          fontFace: FONT_FAMILY
-        }
+        x: 1020,
+        y: 625,
+        w: 350,
+        h: 350
       }
     };
   }
@@ -19,7 +23,6 @@ export default class Splash extends Lightning.Component {
   _init() {
     // create animation and store a reference, so we can start / stop / pause in the fututre
     this._pulse = this.tag('Logo').animation({
-      // duration: 3,
       duration: 1,
       repeat: 1,
       actions: [{ p: 'alpha', v: { 0: 0, 0.5: 1, 1: 0 } }]
@@ -31,8 +34,7 @@ export default class Splash extends Lightning.Component {
       this.signal('loaded');
     });
 
-    // start the animation
-    this._pulse.start();
+    // start the animation    this._pulse.start();
   }
 
   _active() {

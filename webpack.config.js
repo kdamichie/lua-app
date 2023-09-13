@@ -10,7 +10,7 @@ const plugins = [
     patterns: [
       { from: path.resolve(__dirname, './public/images'), to: 'images' },
       { from: path.resolve(__dirname, './public/fonts'), to: 'fonts' },
-      { from: path.resolve(__dirname, './public/logo.png'), to: 'logo.png' }
+      { from: path.resolve(__dirname, './public/images/sb-logo.png'), to: 'sb-logo.png' }
     ]
   })
 ];
