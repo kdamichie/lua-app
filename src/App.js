@@ -13,12 +13,6 @@ export default class App extends Lightning.Component {
   static _template() {
     console.log('started');
     return {
-      rect: true,
-      w: 1920,
-      h: 1080,
-      src: Utils.asset('images/xfg-background.png'),
-      zIndex: -20,
-
       Intro: {
         type: Intro,
         alpha: 0,
@@ -69,6 +63,7 @@ export default class App extends Lightning.Component {
         }
 
         start() {
+          console.log('Kurt');
           this._setState('Splash');
         }
 
@@ -77,12 +72,15 @@ export default class App extends Lightning.Component {
         }
 
         menuSelect({ item }) {
-          if (this._hasMethod(item.action)) {
-            return this[item.action]();
-          } else if (item.action) {
-            window.location.href = item.action;
+          console.log('HERE', item.constructor.name);
+          if (item.constructor.name == 'StartButton') {
+            console.log('Kurt1');
+            this._setState('Splash');
+          } else if (item.constructor.name == 'SkipButton') {
+            console.log('Kurt1');
+            this._setState('Game');
           } else {
-            this._setState('Intro');
+            console.log('Fallthrough');
           }
         }
       },
@@ -98,7 +96,7 @@ export default class App extends Lightning.Component {
 
         loaded() {
           let themeMusic = new Audio('sounds/sb-theme.mp3');
-          themeMusic.muted = false;
+          themeMusic.muted = true;
           themeMusic.play();
           this._setState('Main');
         }

@@ -1,9 +1,16 @@
-import { Lightning } from '@lightningjs/sdk';
+import { Lightning, Utils } from '@lightningjs/sdk';
 import Menu from '../components/intro-menu/Menu';
+import Button from '../components/intro-menu/Button';
 
 export default class Intro extends Lightning.Component {
   static _template() {
     return {
+      rect: true,
+      w: 1920,
+      h: 1080,
+      src: Utils.asset('images/xfg-background.png'),
+      zIndex: -20,
+
       IntroImage: {
         src: 'images/xfg-intro.png',
         mount: 0.5,
@@ -17,10 +24,23 @@ export default class Intro extends Lightning.Component {
         x: 800,
         y: 500,
         type: Menu,
-        items: [
-          { label: '', action: 'start' },
-          { label: '', action: 'exit' }
-        ]
+        Items: {
+          StartButton: {
+            x: -26,
+            y: 236,
+            mountY: 0.5,
+            type: Button,
+            src: 'images/xfg-play.png'
+          },
+          SkipButton: {
+            x: -26,
+            y: 392,
+            mountY: 0.5,
+            type: Button,
+            src: 'images/xfg-skip.png'
+            // smooth: { color: 0xff905fb2 },
+          }
+        }
       }
     };
   }
@@ -30,7 +50,6 @@ export default class Intro extends Lightning.Component {
   }
 
   _handleEnter() {
-    console.log('Enter');
-    this.signal('start');
+    this.signal('select', { item: this.tag('Menu') });
   }
 }

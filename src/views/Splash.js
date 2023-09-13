@@ -1,8 +1,14 @@
-import { Lightning } from '@lightningjs/sdk';
+import { Lightning, Utils } from '@lightningjs/sdk';
 
 export default class Splash extends Lightning.Component {
   static _template() {
     return {
+      rect: true,
+      w: 1920,
+      h: 1080,
+      src: Utils.asset('images/sb-background.png'),
+      zIndex: -20,
+
       Logo: {
         src: 'images/sb-loading.png',
         mount: 0.5,

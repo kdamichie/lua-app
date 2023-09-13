@@ -1,79 +1,41 @@
 import { Lightning } from '@lightningjs/sdk';
-import MenuItem from '../intro-menu/MenuItem';
 
 export default class Menu extends Lightning.Component {
   static _template() {
     return {
-      Items: {
-        Button1: {
-          x: -26,
-          y: 236,
-          mountY: 0.5,
-          type: Button,
-          src: 'images/xfg-play.png'
-        },
-        Button2: {
-          x: -26,
-          y: 392,
-          mountY: 0.5,
-          type: Button,
-          src: 'images/xfg-skip.png',
-          smooth: { color: 0xff905fb2 }
-        }
-      }
+      Items: {}
     };
   }
 
   _init() {
-    this._setState('Button1');
+    this._setState('StartButton');
     this._disable('Button2');
   }
 
   static _states() {
     return [
-      class Button1 extends this {
+      class StartButton extends this {
         _getFocused() {
-          return this.tag('Button1');
+          return this.tag('StartButton');
         }
         _handleDown() {
-          this._setState('Button2');
+          this._setState('SkipButton');
         }
         _handleUp() {
-          this._setState('Button2');
+          this._setState('SkipButton');
         }
       },
-      class Button2 extends this {
+      class SkipButton extends this {
         _getFocused() {
-          return this.tag('Button2');
+          return this.tag('SkipButton');
         }
         _handleUp() {
-          this._setState('Button1');
+          this._setState('StartButton');
         }
         _handleDown() {
-          this._setState('Button1');
+          this._setState('StartButton');
         }
       }
     ];
-  }
-}
-
-class Button extends Lightning.Component {
-  static _template() {
-    return {
-      w: 441,
-      h: 104
-    };
-  }
-
-  _focus() {
-    this.patch({
-      smooth: { scale: 1.1 }
-    });
-  }
-
-  _unfocus() {
-    this.patch({
-      smooth: { scale: 1.0 }
-    });
   }
 }
