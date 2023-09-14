@@ -4,6 +4,7 @@ import Game from './views/Game';
 import Main from './views/Main';
 import Intro from './views/Intro';
 import Splash from './views/Splash';
+import Player from './views/Player';
 
 export default class App extends Lightning.Component {
   static getFonts() {
@@ -35,12 +36,17 @@ export default class App extends Lightning.Component {
         type: Game,
         alpha: 0,
         signals: { back: 'back' }
+      },
+      Player: {
+        type: Player,
+        alpha: 0
       }
     };
   }
 
   _setup() {
-    this._setState('Intro');
+    console.log('SETUP');
+    this._setState('Player');
   }
 
   static _states() {
@@ -96,7 +102,7 @@ export default class App extends Lightning.Component {
 
         loaded() {
           let themeMusic = new Audio('sounds/sb-theme.mp3');
-          themeMusic.muted = true;
+          themeMusic.muted = false;
           themeMusic.play();
           this._setState('Main');
         }
@@ -141,6 +147,11 @@ export default class App extends Lightning.Component {
       class Game extends this {
         $enter() {
           this.tag('Game').setSmooth('alpha', 1);
+          this.timeout = setTimeout(() => {
+            console.log('set timeout for game');
+            this._setState('Player');
+            this.tag('Player').showPlayer();
+          }, 30000);
         }
 
         $exit() {
@@ -152,6 +163,32 @@ export default class App extends Lightning.Component {
         }
 
         back() {
+          this._setState('Main');
+        }
+      },
+
+      class Player extends this {
+        $enter() {
+          this.tag('Player').setSmooth('alpha', 1);
+          this.timeout = setTimeout(() => {
+            console.log('set state main after timeout');
+            this.tag('Player').hidePlayer();
+            this._setState('Intro');
+          }, 15000);
+        }
+        $exit() {
+          this.tag('Player').setSmooth('alpha', 0);
+        }
+        _getFocused() {
+          return this.tag('Player');
+        }
+        _handleEnter() {
+          this._setState('Player');
+        }
+        _handleMenu() {
+          this._setState('Main');
+        }
+        _handleBack() {
           this._setState('Main');
         }
       }
