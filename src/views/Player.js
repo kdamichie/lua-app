@@ -27,6 +27,12 @@ export default class Player extends Lightning.Component {
     VideoPlayer.playPause();
     VideoPlayer.hide();
   }
+
+  showPlayer() {
+    VideoPlayer.open(videoUrl);
+    VideoPlayer.show;
+    VideoPlayer.playPause();
+  }
 }
 
 //notes:
