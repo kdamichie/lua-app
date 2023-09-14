@@ -2,6 +2,7 @@ import { Lightning, Utils } from '@lightningjs/sdk';
 import { FONT_FAMILY } from './constants/style';
 import Game from './views/Game';
 import Main from './views/Main';
+import Intro from './views/Intro';
 import Splash from './views/Splash';
 import Player from './views/Player';
 
@@ -13,16 +14,16 @@ export default class App extends Lightning.Component {
   static _template() {
     console.log('started');
     return {
-      rect: true,
-      w: 1920,
-      h: 1080,
-      src: Utils.asset('images/sb-background.png'),
-      zIndex: -20,
+      Intro: {
+        type: Intro,
+        alpha: 0,
+        signals: { select: 'menuSelect' }
+      },
 
       Splash: {
         type: Splash,
-        signals: { loaded: true },
-        alpha: 0
+        alpha: 0,
+        signals: { loaded: true }
       },
 
       Main: {
@@ -50,6 +51,46 @@ export default class App extends Lightning.Component {
 
   static _states() {
     return [
+      class Intro extends this {
+        $enter() {
+          this.tag('Intro').patch({
+            smooth: { alpha: 1, y: 0 }
+          });
+        }
+
+        $exit() {
+          this.tag('Intro').patch({
+            smooth: { alpha: 0, y: 100 }
+          });
+        }
+
+        _getFocused() {
+          return this.tag('Intro');
+        }
+
+        start() {
+          console.log('Kurt');
+          this._setState('Splash');
+        }
+
+        exit() {
+          this.application.closeApp();
+        }
+
+        menuSelect({ item }) {
+          console.log('HERE', item.constructor.name);
+          if (item.constructor.name == 'StartButton') {
+            console.log('Kurt1');
+            this._setState('Splash');
+          } else if (item.constructor.name == 'SkipButton') {
+            console.log('Kurt1');
+            this._setState('Game');
+          } else {
+            console.log('Fallthrough');
+          }
+        }
+      },
+
       class Splash extends this {
         $enter() {
           this.tag('Splash').setSmooth('alpha', 1);
@@ -88,10 +129,6 @@ export default class App extends Lightning.Component {
           this._setState('Game');
         }
 
-        about() {
-          this._setState('About');
-        }
-
         exit() {
           this.application.closeApp();
         }
@@ -102,7 +139,7 @@ export default class App extends Lightning.Component {
           } else if (item.action) {
             window.location.href = item.action;
           } else {
-            this._setState('Fallback');
+            this._setState('Intro');
           }
         }
       },
@@ -110,6 +147,11 @@ export default class App extends Lightning.Component {
       class Game extends this {
         $enter() {
           this.tag('Game').setSmooth('alpha', 1);
+          this.timeout = setTimeout(() => {
+            console.log('set timeout for game');
+            this._setState('Player');
+            this.tag('Player').showPlayer();
+          }, 30000);
         }
 
         $exit() {
@@ -131,7 +173,7 @@ export default class App extends Lightning.Component {
           this.timeout = setTimeout(() => {
             console.log('set state main after timeout');
             this.tag('Player').hidePlayer();
-            this._setState('Splash');
+            this._setState('Intro');
           }, 15000);
         }
         $exit() {

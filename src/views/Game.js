@@ -6,6 +6,12 @@ import GameUtils from '../lib/GameUtils';
 export default class Game extends Lightning.Component {
   static _template() {
     return {
+      rect: true,
+      w: 1920,
+      h: 1080,
+      src: Utils.asset('images/sb-background.png'),
+      zIndex: -20,
+
       Game: {
         Field: {
           rect: true,

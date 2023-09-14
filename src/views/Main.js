@@ -1,9 +1,15 @@
-import { Lightning } from '@lightningjs/sdk';
+import { Lightning, Utils } from '@lightningjs/sdk';
 import Menu from '../components/main-menu/Menu';
 
 export default class Main extends Lightning.Component {
   static _template() {
     return {
+      rect: true,
+      w: 1920,
+      h: 1080,
+      src: Utils.asset('images/sb-background.png'),
+      zIndex: -20,
+
       Logo: {
         src: 'images/sb-ttt-title.png',
         mount: 0.5,
@@ -18,11 +24,7 @@ export default class Main extends Lightning.Component {
         x: 800,
         y: 500,
         type: Menu,
-        items: [
-          { label: '', action: 'start' },
-          { label: '', action: 'https://gamex.np.gpe.xfinity.com/#play' },
-          { label: '', action: 'exit' }
-        ],
+        items: [{ action: 'start' }, { action: 'https://gamex.np.gpe.xfinity.com/#play' }, { action: 'exit' }],
         Logo: {
           src: 'images/sb-menu.png',
           mount: 0.5,

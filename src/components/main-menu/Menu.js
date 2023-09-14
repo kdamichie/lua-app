@@ -4,9 +4,7 @@ import MenuItem from '../main-menu/MenuItem';
 export default class Menu extends Lightning.Component {
   static _template() {
     return {
-      Items: {
-        x: 40
-      },
+      Items: {},
       FocusIndicator: {
         Logo: {
           src: 'images/sb-pineapple.png',
@@ -21,8 +19,8 @@ export default class Menu extends Lightning.Component {
   }
 
   set items(values) {
-    this.tag('Items').children = values.map((el, idx) => {
-      return { type: MenuItem, action: el.action, label: el.label, y: idx * 90 };
+    this.tag('Items').children = values.map((elm, idx) => {
+      return { type: MenuItem, action: elm.action };
     });
   }
 
@@ -35,7 +33,7 @@ export default class Menu extends Lightning.Component {
   }
 
   _setIndex(idx) {
-    this.tag('FocusIndicator').setSmooth('y', idx * 90 + 5);
+    this.tag('FocusIndicator').setSmooth('y', idx * 90);
     this._index = idx;
   }
 
