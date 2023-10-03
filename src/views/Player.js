@@ -3,6 +3,7 @@ import { Lightning, VideoPlayer } from '@lightningjs/sdk';
 const videoUrl1 = 'videos/Ad1a.mov';
 const videoUrl2 = 'videos/Ad2a.mov';
 const timeout = 15000;
+
 export default class Player extends Lightning.Component {
   static _template() {
     return {
