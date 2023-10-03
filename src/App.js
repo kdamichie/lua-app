@@ -5,6 +5,7 @@ import Main from './views/Main';
 import Intro from './views/Intro';
 import Splash from './views/Splash';
 import Player from './views/Player';
+import Timer from './views/Timer';
 
 export default class App extends Lightning.Component {
   static getFonts() {
@@ -39,6 +40,10 @@ export default class App extends Lightning.Component {
       },
       Player: {
         type: Player,
+        alpha: 0
+      },
+      Timer: {
+        type: Timer,
         alpha: 0
       }
     };
@@ -147,6 +152,7 @@ export default class App extends Lightning.Component {
       class Game extends this {
         $enter() {
           this.tag('Game').setSmooth('alpha', 1);
+          this.tag('Timer').setSmooth('alpha', 1);
           this.timeout = setTimeout(() => {
             console.log('set timeout for game');
             this._setState('Player');
@@ -156,6 +162,7 @@ export default class App extends Lightning.Component {
 
         $exit() {
           this.tag('Game').setSmooth('alpha', 0);
+          this.tag('Timer').setSmooth('alpha', 0);
         }
 
         _getFocused() {

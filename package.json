@@ -15,7 +15,10 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@lightningjs/sdk": "^5.4.1"
+    "@lightning/ui": "^5.19.0",
+    "@lightningjs/core": "^2.11.0",
+    "@lightningjs/sdk": "^5.4.1",
+    "@lightningjs/ui-components": "^2.14.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
