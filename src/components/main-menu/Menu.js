@@ -19,7 +19,7 @@ export default class Menu extends Lightning.Component {
   }
 
   set items(values) {
-    this.tag('Items').children = values.map((elm, idx) => {
+    this.tag('Items').children = values.map((elm) => {
       return { type: MenuItem, action: elm.action };
     });
   }

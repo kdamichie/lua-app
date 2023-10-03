@@ -6,6 +6,8 @@ import Intro from './views/Intro';
 import Splash from './views/Splash';
 import Player from './views/Player';
 
+let themeMusic = new Audio('sounds/sb-theme.mp3');
+
 export default class App extends Lightning.Component {
   static getFonts() {
     return [{ family: FONT_FAMILY, url: Utils.asset('fonts/KrabbyPatty.ttf') }];
@@ -37,9 +39,10 @@ export default class App extends Lightning.Component {
         alpha: 0,
         signals: { back: 'back' }
       },
+
       Player: {
         type: Player,
-        alpha: 0
+        alpha: 1
       }
     };
   }
@@ -80,13 +83,10 @@ export default class App extends Lightning.Component {
         menuSelect({ item }) {
           console.log('HERE', item.constructor.name);
           if (item.constructor.name == 'StartButton') {
-            console.log('Kurt1');
             this._setState('Splash');
           } else if (item.constructor.name == 'SkipButton') {
-            console.log('Kurt1');
-            this._setState('Game');
-          } else {
-            console.log('Fallthrough');
+            console.log('Disabled');
+            // this._setState('Game');
           }
         }
       },
@@ -101,7 +101,7 @@ export default class App extends Lightning.Component {
         }
 
         loaded() {
-          let themeMusic = new Audio('sounds/sb-theme.mp3');
+          // let themeMusic = new Audio('sounds/sb-theme.mp3');
           themeMusic.muted = false;
           themeMusic.play();
           this._setState('Main');
@@ -130,7 +130,9 @@ export default class App extends Lightning.Component {
         }
 
         exit() {
-          this.application.closeApp();
+          themeMusic.pause();
+          this._setState('Intro');
+          // this.application.closeApp();
         }
 
         menuSelect({ item }) {
@@ -147,11 +149,11 @@ export default class App extends Lightning.Component {
       class Game extends this {
         $enter() {
           this.tag('Game').setSmooth('alpha', 1);
-          this.timeout = setTimeout(() => {
-            console.log('set timeout for game');
-            this._setState('Player');
-            this.tag('Player').showPlayer();
-          }, 30000);
+          // this.timeout = setTimeout(() => {
+          //   console.log('set timeout for game');
+          //   this._setState('Player');
+          //   this.tag('Player').showPlayer();
+          // }, 30000);
         }
 
         $exit() {
@@ -174,7 +176,7 @@ export default class App extends Lightning.Component {
             console.log('set state main after timeout');
             this.tag('Player').hidePlayer();
             this._setState('Intro');
-          }, 15000);
+          }, 8150);
         }
         $exit() {
           this.tag('Player').setSmooth('alpha', 0);
