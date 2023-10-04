@@ -1,8 +1,7 @@
 import { Lightning, VideoPlayer } from '@lightningjs/sdk';
 
-// const videoUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 const videoUrl = 'videos/Ad1a.mov';
-// const timeout = 15000;
+const timeout = 15000;
 export default class Player extends Lightning.Component {
   static _template() {
     return {
