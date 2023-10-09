@@ -20,15 +20,20 @@ export default class Timer extends lng.Component {
     };
   }
 
-  _init() {
-    let countdown = 60;
+  _countdown() {
+    let countdown = 30;
     this.countdownInterval = setInterval(() => {
       countdown--;
       if (countdown === 0) {
         clearInterval(this.countdownInterval);
       }
-      this.tag('Description').text.text = ':' + countdown;
+      this.tag('Description').text.text = countdown;
       console.log(countdown);
     }, 1000);
+  }
+
+  _clearcountdown() {
+    clearInterval(this.countdownInterval);
+    this.tag('Description').text.text = '';
   }
 }

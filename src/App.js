@@ -55,6 +55,7 @@ export default class App extends Lightning.Component {
   _setup() {
     console.log('SETUP');
     this._setState('Player');
+    this.tag('Player').showPlayer1();
   }
 
   static _states() {
@@ -110,6 +111,9 @@ export default class App extends Lightning.Component {
           themeMusic.muted = false;
           themeMusic.play();
           this._setState('Main');
+          this.timeout = setTimeout(() => {
+            themeMusic.pause();
+          }, 32000);
         }
       },
 
@@ -155,10 +159,11 @@ export default class App extends Lightning.Component {
         $enter() {
           this.tag('Game').setSmooth('alpha', 1);
           this.tag('Timer').setSmooth('alpha', 1);
+          this.tag('Timer')._countdown();
           this.timeout = setTimeout(() => {
             console.log('set timeout for game');
             this._setState('Player');
-            this.tag('Player').showPlayer();
+            this.tag('Player').showPlayer2();
           }, 30000);
         }
 
@@ -182,10 +187,12 @@ export default class App extends Lightning.Component {
           this.timeout = setTimeout(() => {
             console.log('set state main after timeout');
             this.tag('Player').hidePlayer();
+
             this._setState('Intro');
           }, 8150);
         }
         $exit() {
+          //         this.tag(Player)._playPause();
           this.tag('Player').setSmooth('alpha', 0);
         }
         _getFocused() {
