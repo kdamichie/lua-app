@@ -138,7 +138,6 @@ export default class App extends Lightning.Component {
         exit() {
           themeMusic.pause();
           this._setState('Player2');
-          // this.application.closeApp();
         }
 
         menuSelect({ item }) {
@@ -155,6 +154,8 @@ export default class App extends Lightning.Component {
       class Game extends this {
         $enter() {
           this.tag('Game').setSmooth('alpha', 1);
+          this.tag('Timer').setSmooth('alpha', 1);
+          this.tag('Timer')._countdown();
         }
 
         $exit() {
@@ -175,7 +176,6 @@ export default class App extends Lightning.Component {
         $enter() {
           this.tag('Player1').setSmooth('alpha', 1);
           this.timeout = setTimeout(() => {
-            console.log('set state main after timeout');
             this.tag('Player1').hidePlayer();
             this._setState('Intro');
           }, 8150);
