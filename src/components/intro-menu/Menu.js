@@ -1,11 +1,11 @@
 import { Lightning } from '@lightningjs/sdk';
 
 export default class Menu extends Lightning.Component {
-  static _template() {
-    return {
-      Items: {}
-    };
-  }
+  // static _template() {
+  //   return {
+  //     Items: {}
+  //   };
+  // }
 
   _init() {
     this._setState('StartButton');

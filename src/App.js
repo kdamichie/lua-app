@@ -4,8 +4,9 @@ import Game from './views/Game';
 import Main from './views/Main';
 import Intro from './views/Intro';
 import Splash from './views/Splash';
-import Player from './views/Player';
 import Timer from './views/Timer';
+import Player1 from './views/Player1';
+import Player2 from './views/Player2';
 
 let themeMusic = new Audio('sounds/sb-theme.mp3');
 
@@ -15,7 +16,6 @@ export default class App extends Lightning.Component {
   }
 
   static _template() {
-    console.log('started');
     return {
       Intro: {
         type: Intro,
@@ -41,10 +41,16 @@ export default class App extends Lightning.Component {
         signals: { back: 'back' }
       },
 
-      Player: {
-        type: Player,
+      Player1: {
+        type: Player1,
         alpha: 0
       },
+
+      Player2: {
+        type: Player2,
+        alpha: 0
+      },
+
       Timer: {
         type: Timer,
         alpha: 0
@@ -53,9 +59,7 @@ export default class App extends Lightning.Component {
   }
 
   _setup() {
-    console.log('SETUP');
-    this._setState('Player');
-    this.tag('Player').showPlayer1();
+    this._setState('Player1');
   }
 
   static _states() {
@@ -78,7 +82,6 @@ export default class App extends Lightning.Component {
         }
 
         start() {
-          console.log('Kurt');
           this._setState('Splash');
         }
 
@@ -87,12 +90,10 @@ export default class App extends Lightning.Component {
         }
 
         menuSelect({ item }) {
-          console.log('HERE', item.constructor.name);
           if (item.constructor.name == 'StartButton') {
             this._setState('Splash');
           } else if (item.constructor.name == 'SkipButton') {
-            console.log('Disabled');
-            // this._setState('Game');
+            this._setState('Player2');
           }
         }
       },
@@ -107,13 +108,9 @@ export default class App extends Lightning.Component {
         }
 
         loaded() {
-          // let themeMusic = new Audio('sounds/sb-theme.mp3');
           themeMusic.muted = false;
           themeMusic.play();
           this._setState('Main');
-          this.timeout = setTimeout(() => {
-            themeMusic.pause();
-          }, 32000);
         }
       },
 
@@ -140,7 +137,7 @@ export default class App extends Lightning.Component {
 
         exit() {
           themeMusic.pause();
-          this._setState('Intro');
+          this._setState('Player2');
           // this.application.closeApp();
         }
 
@@ -158,11 +155,6 @@ export default class App extends Lightning.Component {
       class Game extends this {
         $enter() {
           this.tag('Game').setSmooth('alpha', 1);
-          this.timeout = setTimeout(() => {
-            console.log('set timeout for game');
-            this._setState('Player');
-            this.tag('Player').showPlayer();
-          }, 30000);
         }
 
         $exit() {
@@ -179,31 +171,39 @@ export default class App extends Lightning.Component {
         }
       },
 
-      class Player extends this {
+      class Player1 extends this {
         $enter() {
-          this.tag('Player').setSmooth('alpha', 1);
+          this.tag('Player1').setSmooth('alpha', 1);
           this.timeout = setTimeout(() => {
             console.log('set state main after timeout');
-            this.tag('Player').hidePlayer();
-
+            this.tag('Player1').hidePlayer();
             this._setState('Intro');
           }, 8150);
         }
         $exit() {
-          //         this.tag(Player)._playPause();
-          this.tag('Player').setSmooth('alpha', 0);
+          this.tag('Player1').setSmooth('alpha', 0);
         }
         _getFocused() {
-          return this.tag('Player');
+          return this.tag('Player1');
         }
         _handleEnter() {
-          this._setState('Player');
+          this._setState('Player1');
         }
         _handleMenu() {
           this._setState('Main');
         }
         _handleBack() {
           this._setState('Main');
+        }
+      },
+
+      class Player2 extends this {
+        $enter() {
+          this.tag('Player2').setSmooth('alpha', 1);
+          this.timeout = setTimeout(() => {
+            console.log('Close App');
+            this.application.closeApp();
+          }, 8100);
         }
       }
     ];
