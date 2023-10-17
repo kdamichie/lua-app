@@ -38,7 +38,6 @@ export default class Intro extends Lightning.Component {
             mountY: 0.5,
             type: Button,
             src: 'images/xfg-skip.png'
-            // smooth: { color: 0xff905fb2 },
           }
         }
       }

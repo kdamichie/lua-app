@@ -1,5 +1,4 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
-import Logo from '../components/logo';
 import { FONT_COLOR, FONT_FAMILY, GRID_COLOR } from '../constants/style';
 import GameUtils from '../lib/GameUtils';
 
@@ -43,7 +42,11 @@ export default class Game extends Lightning.Component {
         },
 
         Logo: {
-          type: Logo
+          x: 100,
+          y: 100,
+          w: 200,
+          h: 200,
+          src: Utils.asset('images/nickalodeon-logo.png')
         },
 
         ScoreBoard: {

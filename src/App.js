@@ -1,10 +1,16 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
 import { FONT_FAMILY } from './constants/style';
+
+import Credits from './views/Credits';
 import Game from './views/Game';
-import Main from './views/Main';
 import Intro from './views/Intro';
-import Splash from './views/Splash';
-import Player from './views/Player';
+import Load from './views/Load';
+import Main from './views/Main';
+import Player1 from './views/Player1';
+import Player2 from './views/Player2';
+import Timer from './views/Timer';
+
+let themeMusic = new Audio('sounds/sb-theme.mp3');
 
 export default class App extends Lightning.Component {
   static getFonts() {
@@ -12,7 +18,6 @@ export default class App extends Lightning.Component {
   }
 
   static _template() {
-    console.log('started');
     return {
       Intro: {
         type: Intro,
@@ -20,10 +25,15 @@ export default class App extends Lightning.Component {
         signals: { select: 'menuSelect' }
       },
 
-      Splash: {
-        type: Splash,
+      Load: {
+        type: Load,
         alpha: 0,
         signals: { loaded: true }
+      },
+
+      Timer: {
+        type: Timer,
+        alpha: 0
       },
 
       Main: {
@@ -37,16 +47,26 @@ export default class App extends Lightning.Component {
         alpha: 0,
         signals: { back: 'back' }
       },
-      Player: {
-        type: Player,
+
+      Player1: {
+        type: Player1,
+        alpha: 0
+      },
+
+      Player2: {
+        type: Player2,
+        alpha: 0
+      },
+
+      Credits: {
+        type: Credits,
         alpha: 0
       }
     };
   }
 
   _setup() {
-    console.log('SETUP');
-    this._setState('Player');
+    this._setState('Player1');
   }
 
   static _states() {
@@ -69,8 +89,7 @@ export default class App extends Lightning.Component {
         }
 
         start() {
-          console.log('Kurt');
-          this._setState('Splash');
+          this._setState('Load');
         }
 
         exit() {
@@ -78,32 +97,28 @@ export default class App extends Lightning.Component {
         }
 
         menuSelect({ item }) {
-          console.log('HERE', item.constructor.name);
           if (item.constructor.name == 'StartButton') {
-            console.log('Kurt1');
-            this._setState('Splash');
+            this._setState('Load');
           } else if (item.constructor.name == 'SkipButton') {
-            console.log('Kurt1');
-            this._setState('Game');
-          } else {
-            console.log('Fallthrough');
+            this._setState('Player2');
           }
         }
       },
 
-      class Splash extends this {
+      class Load extends this {
         $enter() {
-          this.tag('Splash').setSmooth('alpha', 1);
+          this.tag('Load').setSmooth('alpha', 1);
         }
 
         $exit() {
-          this.tag('Splash').setSmooth('alpha', 0);
+          this.tag('Load').setSmooth('alpha', 0);
         }
 
         loaded() {
-          let themeMusic = new Audio('sounds/sb-theme.mp3');
           themeMusic.muted = false;
           themeMusic.play();
+          this.tag('Timer').setSmooth('alpha', 1);
+          this.tag('Timer')._countdown();
           this._setState('Main');
         }
       },
@@ -130,7 +145,14 @@ export default class App extends Lightning.Component {
         }
 
         exit() {
-          this.application.closeApp();
+          if (this.tag('Timer')._checkIfTimeZero()) {
+            themeMusic.pause();
+            this.tag('Timer').setSmooth('alpha', 0);
+            this.tag('Timer')._clearcountdown();
+            this._setState('Player2');
+          } else {
+            console.log('ad time not finished');
+          }
         }
 
         menuSelect({ item }) {
@@ -147,11 +169,6 @@ export default class App extends Lightning.Component {
       class Game extends this {
         $enter() {
           this.tag('Game').setSmooth('alpha', 1);
-          this.timeout = setTimeout(() => {
-            console.log('set timeout for game');
-            this._setState('Player');
-            this.tag('Player').showPlayer();
-          }, 30000);
         }
 
         $exit() {
@@ -167,29 +184,70 @@ export default class App extends Lightning.Component {
         }
       },
 
-      class Player extends this {
+      class Player1 extends this {
         $enter() {
-          this.tag('Player').setSmooth('alpha', 1);
+          this.tag('Player1').setSmooth('alpha', 1);
           this.timeout = setTimeout(() => {
-            console.log('set state main after timeout');
-            this.tag('Player').hidePlayer();
+            this.tag('Player1').hidePlayer();
             this._setState('Intro');
-          }, 15000);
+          }, 8150);
         }
         $exit() {
-          this.tag('Player').setSmooth('alpha', 0);
+          this.tag('Player1').setSmooth('alpha', 0);
         }
         _getFocused() {
-          return this.tag('Player');
+          return this.tag('Player1');
         }
         _handleEnter() {
-          this._setState('Player');
+          this._setState('Player1');
         }
-        _handleMenu() {
-          this._setState('Main');
+      },
+
+      class Player2 extends this {
+        $enter() {
+          this.tag('Player2').setSmooth('alpha', 1);
+          this.timeout = setTimeout(() => {
+            this.tag('Player2').hidePlayer();
+            this._setState('Credits');
+          }, 7700);
         }
-        _handleBack() {
-          this._setState('Main');
+        $exit() {
+          this.tag('Player2').setSmooth('alpha', 0);
+        }
+        _getFocused() {
+          return this.tag('Player2');
+        }
+        _handleEnter() {
+          this._setState('Player2');
+        }
+      },
+
+      class Credits extends this {
+        $enter() {
+          this.tag('Credits').patch({
+            smooth: { alpha: 1, y: 0 }
+          });
+        }
+        _handleEnter() {
+          location.reload();
+        }
+
+        // $exit() {
+        //   this.tag('Intro').patch({
+        //     smooth: { alpha: 0, y: 100 }
+        //   });
+        // }
+
+        _getFocused() {
+          return this.tag('Credits');
+        }
+
+        start() {
+          location.reload();
+        }
+
+        exit() {
+          this.application.closeApp();
         }
       }
     ];
