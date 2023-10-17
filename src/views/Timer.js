@@ -1,39 +1,53 @@
 import lng from '@lightningjs/core';
-import { FONT_COLOR, FONT_FAMILY } from '../constants/style';
-import { Utils } from '@lightningjs/sdk';
 
 export default class Timer extends lng.Component {
-  static getFonts() {
-    return [{ family: FONT_FAMILY, url: Utils.asset('fonts/KrabbyPatty.ttf') }];
-  }
   static _template() {
     return {
       Description: {
-        y: 45,
-        x: 1625,
+        y: 20,
+        x: 1680,
+        text: {
+          fontSize: 50,
+          fontStyle: 'bold',
+          text: 'Ad Time'
+        }
+      },
+
+      Countdown: {
+        y: 60,
+        x: 1750,
         text: {
           fontSize: 100,
-          text: '',
-          textColor: FONT_COLOR
+          fontStyle: 'bold',
+          text: '30'
         }
       }
     };
   }
 
   _countdown() {
-    let countdown = 30;
+    this.countdown = 30;
     this.countdownInterval = setInterval(() => {
-      countdown--;
-      if (countdown === 0) {
+      this.countdown--;
+      if (this.countdown === 0) {
         clearInterval(this.countdownInterval);
+        this.countdown = '0';
       }
-      this.tag('Description').text.text = countdown;
-      console.log(countdown);
+      this.tag('Countdown').text.text = this.countdown;
     }, 1000);
+  }
+
+  _checkIfTimeZero() {
+    let timeZero = false;
+    console.log(this.countdown);
+    if (this.countdown <= 0) {
+      timeZero = true;
+    }
+    return timeZero;
   }
 
   _clearcountdown() {
     clearInterval(this.countdownInterval);
-    this.tag('Description').text.text = '';
+    this.tag('Countdown').text.text = '';
   }
 }
