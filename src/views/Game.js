@@ -241,11 +241,13 @@ export default class Game extends Lightning.Component {
             class Winner extends this {
               $enter(_, { winner }) {
                 if (winner === 'X') {
-                  let audio = new Audio('sounds/sb-win.mp3');
+                  // let audio = new Audio('sounds/sb-win.mp3');
+                  let audio = new Audio('https://github.com/kdamichie/lua-app/raw/main/public/sounds/sb-win.mp3');
                   audio.play();
                   this._playerScore += 1;
                 } else {
-                  let audio = new Audio('sounds/sb-lose.mp3');
+                  // let audio = new Audio('sounds/sb-lose.mp3');
+                  let audio = new Audio('https://github.com/kdamichie/lua-app/raw/main/public/sounds/sb-lose.mp3');
                   audio.play();
                   this._aiScore += 1;
                 }
@@ -272,7 +274,10 @@ export default class Game extends Lightning.Component {
 
             class Tie extends this {
               $enter() {
-                let audio = new Audio('sounds/sb-draw.mp3');
+                // let audio = new Audio('sounds/sb-draw.mp3');
+                let audio = new Audio(
+                  'https://raw.githubusercontent.com/kdamichie/lua-app/main/public/sounds/sb-draw.mp3'
+                );
                 audio.play();
                 this.patch({
                   Game: {

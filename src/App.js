@@ -10,7 +10,8 @@ import Player1 from './views/Player1';
 import Player2 from './views/Player2';
 import Timer from './views/Timer';
 
-let themeMusic = new Audio('sounds/sb-theme.mp3');
+// let themeMusic = new Audio('sounds/sb-theme.mp3');
+let themeMusic = new Audio('https://raw.githubusercontent.com/kdamichie/lua-app/main/public/sounds/sb-theme.mp3');
 
 export default class App extends Lightning.Component {
   static getFonts() {
