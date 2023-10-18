@@ -1,6 +1,7 @@
 import { Lightning, VideoPlayer } from '@lightningjs/sdk';
 
-const videoUrl = 'videos/Ad1a.mov';
+// const videoUrl = 'videos/Ad1a.mov';
+const videoUrl = 'https://raw.githubusercontent.com/kdamichie/lua-app/main/public/videos/Ad1a.mov';
 
 export default class Player1 extends Lightning.Component {
   static _template() {
