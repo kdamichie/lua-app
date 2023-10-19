@@ -66,7 +66,7 @@ export default class App extends Lightning.Component {
   }
 
   _setup() {
-    this._setState('Load');
+    this._setState('Player1');
   }
 
   static _states() {
