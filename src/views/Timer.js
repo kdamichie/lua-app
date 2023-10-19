@@ -5,7 +5,7 @@ export default class Timer extends lng.Component {
     return {
       Description: {
         y: 20,
-        x: 1680,
+        x: 1640,
         text: {
           fontSize: 50,
           fontStyle: 'bold',
@@ -15,7 +15,7 @@ export default class Timer extends lng.Component {
 
       Countdown: {
         y: 60,
-        x: 1750,
+        x: 1710,
         text: {
           fontSize: 100,
           fontStyle: 'bold',

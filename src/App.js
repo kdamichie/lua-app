@@ -1,4 +1,4 @@
-import { Lightning, Utils } from '@lightningjs/sdk';
+import { Lightning, Utils, Colors } from '@lightningjs/sdk';
 import { FONT_FAMILY } from './constants/style';
 
 import Credits from './views/Credits';
@@ -11,7 +11,6 @@ import Player2 from './views/Player2';
 import Timer from './views/Timer';
 
 // let themeMusic = new Audio('sounds/sb-theme.mp3');
-let themeMusic = new Audio('https://raw.githubusercontent.com/kdamichie/lua-app/main/public/sounds/sb-theme.mp3');
 
 export default class App extends Lightning.Component {
   static getFonts() {
@@ -67,7 +66,7 @@ export default class App extends Lightning.Component {
   }
 
   _setup() {
-    this._setState('Player1');
+    this._setState('Load');
   }
 
   static _states() {
@@ -116,8 +115,8 @@ export default class App extends Lightning.Component {
         }
 
         loaded() {
-          themeMusic.muted = false;
-          themeMusic.play();
+          // themeMusic.muted = false;
+          // themeMusic.play();
           this.tag('Timer').setSmooth('alpha', 1);
           this.tag('Timer')._countdown();
           this._setState('Main');
@@ -147,12 +146,13 @@ export default class App extends Lightning.Component {
 
         exit() {
           if (this.tag('Timer')._checkIfTimeZero()) {
-            themeMusic.pause();
+            // themeMusic.pause();
             this.tag('Timer').setSmooth('alpha', 0);
             this.tag('Timer')._clearcountdown();
             this._setState('Player2');
           } else {
             console.log('ad time not finished');
+            return false;
           }
         }
 
@@ -232,12 +232,6 @@ export default class App extends Lightning.Component {
         _handleEnter() {
           location.reload();
         }
-
-        // $exit() {
-        //   this.tag('Intro').patch({
-        //     smooth: { alpha: 0, y: 100 }
-        //   });
-        // }
 
         _getFocused() {
           return this.tag('Credits');
