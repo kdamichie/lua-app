@@ -24,6 +24,18 @@ export default class Player2 extends Lightning.Component {
     VideoPlayer.playPause();
   }
 
+  _handleUp() {}
+
+  _handleDown() {}
+
+  _handleLeft() {}
+
+  _handleRight() {}
+
+  _handleMenu() {}
+
+  _handleBack() {}
+
   _playPause() {
     VideoPlayer.playPause();
   }
